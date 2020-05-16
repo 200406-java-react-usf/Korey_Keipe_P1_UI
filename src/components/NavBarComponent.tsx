@@ -45,10 +45,14 @@ const NavbarComponent = (props: INavbarProps) => {
 					<MenuIcon />
 					</IconButton>
 					<Typography variant="h6" className={classes.title}>
-						Home
+					<Link to="/home" className={classes.link}>Home</Link>
+					</Typography>
+					<Typography variant="h6" className={classes.title}>
+						<Link to="/register" className={classes.link}>Register</Link>
 					</Typography>
 					<Typography>
 						<Link to="/login" className={classes.link}> LOGIN </Link>
+						{/* <Link to="/home" className={classes.link}> LOGOUT</Link> */}
 					</Typography>
 				</Toolbar>
 			</AppBar>
