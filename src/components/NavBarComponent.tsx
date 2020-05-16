@@ -9,6 +9,7 @@ import {
 	Button,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 interface INavbarProps {
 	authUser: User;
@@ -24,7 +25,11 @@ const userStyles = makeStyles((theme: Theme) =>
 	},
 	title: {
 		flexGrow: 1,
-	}
+	},
+	link: {
+        textDecoration: 'none',
+        color: 'white'
+    }
 	}),
 );
 
@@ -34,7 +39,7 @@ const NavbarComponent = (props: INavbarProps) => {
 
 	return (
 		<>
-			<AppBar position="static">
+			<AppBar position="fixed">
 				<Toolbar>
 					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
 					<MenuIcon />
@@ -42,7 +47,9 @@ const NavbarComponent = (props: INavbarProps) => {
 					<Typography variant="h6" className={classes.title}>
 						Home
 					</Typography>
-					<Button color="inherit">Login</Button>
+					<Typography>
+						<Link to="/login" className={classes.link}> LOGIN </Link>
+					</Typography>
 				</Toolbar>
 			</AppBar>
 

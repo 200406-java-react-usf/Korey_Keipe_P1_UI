@@ -13,7 +13,6 @@ import { registerUser } from '../remote/user-service';
 import { User } from '../models/user';
 
 interface IRegisterProps {
-	newUser: User;
 	authUser: User;
 	errorMessage: string;
 	setNewUser: (user: User) => void;
