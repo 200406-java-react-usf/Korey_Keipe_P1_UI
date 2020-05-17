@@ -13,9 +13,9 @@ import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
 
 interface IRegisterProps {
-	authUser: User;
-	errorMessage: string;
-	setNewUser: (newUser: NewUser) => void;
+    authUser: User;
+    errorMessage: string;
+    setNewUser: (newUser: NewUser) => void;
 }
 
 const useStyles = makeStyles({
@@ -40,8 +40,8 @@ function RegisterComponent(props: IRegisterProps) {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState ('');
 	const [email, setEmail] = useState ('');
-	const [role, setRole] = useState ('');
-	const [errorMessage, setErrorMessage] = useState ('');
+    const [role_id, setRole] = useState (1);
+    const [errorMessage, setErrorMessage] = useState ('');
 
 	let updateUsername = (e: any) => {
 		setUsername(e.target.value);
@@ -69,14 +69,15 @@ function RegisterComponent(props: IRegisterProps) {
 
 	let register = async () => {
 
-		if(username === '' || password === '' || firstName === '' || lastName === '' || email === ''){
-			setErrorMessage('All fields must be complete')
-		}
-		let user = new NewUser(username, password, firstName, lastName, email, role);
+        try{
+		let user = new NewUser(username, password, firstName, lastName, email, role_id);
 		let newUser = await registerUser(user);
 		props.setNewUser(newUser)
 		console.log(newUser);	
-	}
+        } catch (e) {
+            setErrorMessage(e);
+        }
+    }
 
 	return (
 		
@@ -135,7 +136,7 @@ function RegisterComponent(props: IRegisterProps) {
                         <InputLabel htmlFor="role_id">Role</InputLabel>
                         <Input 
                             onChange={updateRole}
-                            value={role}
+                            value={role_id}
                             id="role" type="text"
                             placeholder="Enter user role"/>
                     </FormControl>
@@ -143,7 +144,7 @@ function RegisterComponent(props: IRegisterProps) {
                     <Button onClick={register} variant="contained" color="primary" size="medium">Register</Button>
                     <br/><br/>
                     {
-                        errorMessage 
+                        errorMessage
                             ? 
 							<Alert severity="error"> {errorMessage} </Alert>
                             :

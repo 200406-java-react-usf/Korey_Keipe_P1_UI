@@ -9,9 +9,11 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
+import { logOut } from '../remote/user-service';
 
 interface INavbarProps {
 	authUser: User;
+	setAuthUser: (user: User) => void;
 }
 
 const userStyles = makeStyles((theme: Theme) =>
@@ -36,6 +38,13 @@ const NavbarComponent = (props: INavbarProps) => {
 
 	const classes = userStyles();
 
+	let logout = async () => {
+		await logOut();
+		//@ts-ignore
+		props.setAuthUser(null);
+		console.log('Logged out');
+	}
+
 	return (
 		<>
 			<AppBar position="fixed">
@@ -44,7 +53,7 @@ const NavbarComponent = (props: INavbarProps) => {
 					<MenuIcon />
 					</IconButton>
 					<Typography variant="h6" className={classes.title}>
-						<Link to="/home" className={classes.link}>Home</Link>
+						{ props.authUser ? <Link to="/home" className={classes.link}>{props.authUser.username} </Link> : <></> }
 					</Typography>
 					<Typography variant="h6" className={classes.title}>
 						{ props.authUser ? <Link to="/admin" className={classes.link}>Amin</Link> :	<></> }
@@ -55,7 +64,7 @@ const NavbarComponent = (props: INavbarProps) => {
 					<Typography>
 						{ props.authUser 
 							? 
-							<Link to="/home" className={classes.link}> LOGOUT</Link>
+							<Link to="" onClick={logout} className={classes.link}> LOGOUT</Link>
 						 	: 
 							<Link to="/login" className={classes.link}> LOGIN </Link>
 						}

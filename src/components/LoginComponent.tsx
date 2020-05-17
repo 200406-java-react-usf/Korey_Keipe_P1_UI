@@ -15,7 +15,8 @@ import { Redirect } from 'react-router-dom';
 
 interface ILoginProps {
     authUser: User | undefined;
-    setAuthUser: (user: User) => void;    
+    setAuthUser: (user: User) => void;  
+    errorMessage: string;  
 }
 
 const useStyles = makeStyles({
@@ -48,10 +49,6 @@ function LoginComponent(props: ILoginProps) {
 
     let login = async () => {
 
-        if(username === '' || password === ''){
-            setErrorMessage('Enter Username and Password');
-        }
-
 		let authUser = await authenticate(username, password);
         props.setAuthUser(authUser);
         console.log(authUser);
@@ -59,7 +56,7 @@ function LoginComponent(props: ILoginProps) {
 
     return (
         props.authUser ?
-        <Redirect to="/users" /> :
+        <Redirect to="/home" /> :
         <>
             <div className={classes.loginContainer}>
                 <form className={classes.loginForm}>
