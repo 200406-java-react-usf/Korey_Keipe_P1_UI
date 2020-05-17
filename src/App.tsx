@@ -31,7 +31,7 @@ function App() {
         
         <Switch>
           <Route path="/home" render={() => <HomeComponent authUser={authUser} username={authUser?.username} setAuthUser={setAuthUser} /> } />          
-          <Route path="/login" render={() => <LoginComponent authUser={authUser} setAuthUser={setAuthUser} /> } />          
+          <Route path="/login" render={() => <LoginComponent authUser={authUser} setAuthUser={setAuthUser} errorMessage={errorMessage} /> } />          
           <Route path="/register" render={() => <RegisterComponent authUser={authUser} setNewUser={setNewUser} errorMessage={errorMessage} /> } /> 
           <Route path="/users" render={() => <UserComponent authUser={authUser} /> } />        
         </Switch>
