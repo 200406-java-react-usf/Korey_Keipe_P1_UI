@@ -24,7 +24,7 @@ function App() {
         <AppBar color="primary" position="static">
           <Toolbar>
             <Typography>
-                <NavbarComponent authUser={authUser}/>
+                <NavbarComponent authUser={authUser} setAuthUser={setAuthUser}/>
             </Typography>
           </Toolbar>
         </AppBar>
