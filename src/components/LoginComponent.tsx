@@ -59,7 +59,7 @@ function LoginComponent(props: ILoginProps) {
 
     return (
         props.authUser ?
-        <Redirect to="/home" /> :
+        <Redirect to="/users" /> :
         <>
             <div className={classes.loginContainer}>
                 <form className={classes.loginForm}>
