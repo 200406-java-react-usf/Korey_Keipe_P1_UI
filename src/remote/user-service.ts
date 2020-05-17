@@ -9,12 +9,12 @@ export const getUsers = async () => {
 }
 
 export const logOut = async () => {
-	await localClient.get('/auth');
+	await userClient.get('/auth');
 }
 
 export async function registerUser(newUser: NewUser) {
 	
-	let response = await localClient.post('/users', 
+	let response = await userClient.post('/users', 
 		{username: newUser.username,
 		password: newUser.password, 
 		firstName: newUser.firstName, 
