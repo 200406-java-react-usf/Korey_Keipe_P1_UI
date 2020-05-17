@@ -1,12 +1,10 @@
 import { userClient } from './client';
-import { User } from '../models/user';
 import { NewUser } from '../models/newUser';
 
 export const getUsers = async () => {
 
 	let users = await userClient.get('/users');
-	console.log(users.data);
-	
+	return users.data;	
 }
 
 export const logOut = async () => {
