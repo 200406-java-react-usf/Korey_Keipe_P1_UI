@@ -40,7 +40,7 @@ function RegisterComponent(props: IRegisterProps) {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState ('');
 	const [email, setEmail] = useState ('');
-	const [role, setRole] = useState ('');
+	const [role_id, setRole] = useState (1);
 	const [errorMessage, setErrorMessage] = useState ('');
 
 	let updateUsername = (e: any) => {
@@ -72,7 +72,7 @@ function RegisterComponent(props: IRegisterProps) {
 		if(username === '' || password === '' || firstName === '' || lastName === '' || email === ''){
 			setErrorMessage('All fields must be complete')
 		}
-		let user = new NewUser(username, password, firstName, lastName, email, role);
+		let user = new NewUser(username, password, firstName, lastName, email, role_id);
 		let newUser = await registerUser(user);
 		props.setNewUser(newUser)
 		console.log(newUser);	
@@ -135,7 +135,7 @@ function RegisterComponent(props: IRegisterProps) {
                         <InputLabel htmlFor="role_id">Role</InputLabel>
                         <Input 
                             onChange={updateRole}
-                            value={role}
+                            value={role_id}
                             id="role" type="text"
                             placeholder="Enter user role"/>
                     </FormControl>
