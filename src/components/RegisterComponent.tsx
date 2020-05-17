@@ -8,14 +8,14 @@ import {
     makeStyles 
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { Redirect } from 'react-router-dom';
 import { registerUser } from '../remote/user-service';
+import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
 
 interface IRegisterProps {
 	authUser: User;
 	errorMessage: string;
-	setNewUser: (user: User) => void;
+	setNewUser: (newUser: NewUser) => void;
 }
 
 const useStyles = makeStyles({
@@ -35,13 +35,12 @@ function RegisterComponent(props: IRegisterProps) {
 
 	const classes = useStyles();
 
-	const [user_id, setUserId] = useState(null);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState ('');
 	const [email, setEmail] = useState ('');
-	const [role_id, setRole] = useState (3);
+	const [role, setRole] = useState ('');
 	const [errorMessage, setErrorMessage] = useState ('');
 
 	let updateUsername = (e: any) => {
@@ -70,10 +69,10 @@ function RegisterComponent(props: IRegisterProps) {
 
 	let register = async () => {
 
-		if(user_id === '' || username === '' || password === '' || firstName === '' || lastName === '' || email === ''){
+		if(username === '' || password === '' || firstName === '' || lastName === '' || email === ''){
 			setErrorMessage('All fields must be complete')
 		}
-		let user = new User(user_id, username, password, firstName, lastName, email, role_id);
+		let user = new NewUser(username, password, firstName, lastName, email, role);
 		let newUser = await registerUser(user);
 		props.setNewUser(newUser)
 		console.log(newUser);	
@@ -136,7 +135,7 @@ function RegisterComponent(props: IRegisterProps) {
                         <InputLabel htmlFor="role_id">Role</InputLabel>
                         <Input 
                             onChange={updateRole}
-                            value={role_id}
+                            value={role}
                             id="role" type="text"
                             placeholder="Enter user role"/>
                     </FormControl>
