@@ -32,7 +32,6 @@ const HomeComponent = (props: IHomeProps) => {
 		//@ts-ignore
 		props.setAuthUser(null);
 		console.log('Logged out');
-		
 	}
 
 	return (
