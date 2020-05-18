@@ -55,12 +55,6 @@ const NavbarComponent = (props: INavbarProps) => {
 					<Typography variant="h6" className={classes.title}>
 						{ props.authUser ? <Link to="/home" className={classes.link}>{props.authUser.username} </Link> : <></> }
 					</Typography>
-					<Typography variant="h6" className={classes.title}>
-						{ props.authUser ? <Link to="/admin" className={classes.link}>Amin</Link> :	<></> }
-					</Typography>
-					<Typography variant="h6" className={classes.title}>
-						{ props.authUser ? <Link to="/register" className={classes.link}>Register</Link> :	<></> }
-					</Typography>
 					<Typography>
 						{ props.authUser 
 							? 
