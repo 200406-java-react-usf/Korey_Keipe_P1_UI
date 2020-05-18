@@ -1,4 +1,4 @@
-import { userClient } from './client';
+// import { userClient } from './client';
 import { localClient } from './client';
 import { NewUser } from '../models/newUser';
 
@@ -9,12 +9,12 @@ export const getUsers = async () => {
 }
 
 export const logOut = async () => {
-	await userClient.get('/auth');
+	await localClient.get('/auth');
 }
 
 export async function registerUser(newUser: NewUser) {
 	
-	let response = await userClient.post('/users', 
+	let response = await localClient.post('/users', 
 		{username: newUser.username,
 		password: newUser.password, 
 		firstName: newUser.firstName, 
