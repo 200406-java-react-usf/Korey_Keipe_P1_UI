@@ -1,7 +1,7 @@
 import React from 'react';
 import { User } from "../models/user";
 import { Typography, makeStyles, Grid, Theme, createStyles, Paper } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 interface IDashboardProps {
 	authUser: User;
@@ -29,47 +29,86 @@ function DashboardComponent(props: IDashboardProps) {
     const classes = useStyles();
 
 	return (
-		
+		!props.authUser ?
+		<Redirect to="/login"/> :
 		<>
 				<div className={classes.root}>
 					{props.authUser.role_id === 1 ?
-					<Grid container spacing={3}>
-						<Grid item xs>
-							<Paper className={classes.paper}><Link to="/users" className={classes.link}>Get Users</Link></Paper>
+					<>
+
+					<Typography align="center" variant="h4">
+							ADMIN DASHBOARD
+					</Typography>
+						<Grid container spacing={3}>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="/users" className={classes.link}>USERS</Link></Paper>
+							</Grid>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>REIMBURSEMENTS</Link></Paper>
+							</Grid>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>...</Link></Paper>
+							</Grid>
 						</Grid>
-						<Grid item xs>
-							<Paper className={classes.paper}><Link to="/register" className={classes.link}>Register</Link></Paper>
+						<Grid container spacing={3}>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="/register" className={classes.link}>ADD USER</Link></Paper>
+							</Grid>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>REMOVE USER</Link></Paper>
+							</Grid>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>UPDATE USER</Link></Paper>
+							</Grid>
 						</Grid>
-						<Grid item xs>
-							<Paper className={classes.paper}>xs</Paper>
+						<Grid container spacing={3}>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>ADD USER</Link></Paper>
+							</Grid>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>REMOVE USER</Link></Paper>
+							</Grid>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>UPDATE USER</Link></Paper>
+							</Grid>
 						</Grid>
-					</Grid>
-					: <></> }
-					{props.authUser.role_id === 2 ?
-					<Grid container spacing={3}>
-						<Grid item xs>
-							<Paper className={classes.paper}>Manger Stuff</Paper>
-						</Grid>
-						<Grid item xs={6}>
-							<Paper className={classes.paper}>xs=6</Paper>
-						</Grid>
-						<Grid item xs>
-							<Paper className={classes.paper}>xs</Paper>
-						</Grid>
-					</Grid>
+						</>
+						: <></> }
+						{props.authUser.role_id === 2 ?
+						<>
+						<Typography align="center" variant="h4">
+							MANAGER DASHBOARD
+						</Typography>
+							<Grid container spacing={3}>
+								<Grid item xs>
+									<Paper className={classes.paper}><Link to="" className={classes.link}>ADD</Link></Paper>
+								</Grid>
+								<Grid item xs>
+									<Paper className={classes.paper}><Link to="" className={classes.link}>REMOVE</Link></Paper>
+								</Grid>
+								<Grid item xs>
+									<Paper className={classes.paper}><Link to="" className={classes.link}>EDIT</Link></Paper>
+								</Grid>
+							</Grid>
+					</>
 					: <></> }
 					{props.authUser.role_id === 3 ?
-					<Grid container spacing={3}>
-						<Grid item xs>
-							<Paper className={classes.paper}>User Stuff</Paper>
-						</Grid>
-						<Grid item xs={6}>
-							<Paper className={classes.paper}>xs=6</Paper>
-						</Grid>
-						<Grid item xs>
-							<Paper className={classes.paper}>xs</Paper>
-						</Grid>
-					</Grid>
+					<>
+						<Typography align="center" variant="h4">
+							USER DASHBOARD
+						</Typography>
+							<Grid container spacing={3}>
+								<Grid item xs>
+									<Paper className={classes.paper}><Link to="" className={classes.link}>MY REIMBURSEMENTS</Link></Paper>
+								</Grid>
+								<Grid item xs>
+									<Paper className={classes.paper}><Link to="" className={classes.link}>MY PROFILE</Link></Paper>
+								</Grid>
+								<Grid item xs>
+									<Paper className={classes.paper}><Link to="" className={classes.link}>NEW REIMBURSEMENT</Link></Paper>
+								</Grid>
+							</Grid>
+					</>
 					: <></> }
 
 				</div>

@@ -53,7 +53,7 @@ const NavbarComponent = (props: INavbarProps) => {
 					<MenuIcon />
 					</IconButton> */}
 					<Typography variant="h6" className={classes.title}>
-						{ props.authUser ? <Link to="/home" className={classes.link}>{props.authUser.username} </Link> : <></> }
+						{ props.authUser ? <Link to="/dashboard" className={classes.link}>{props.authUser.username} </Link> : <></> }
 					</Typography>
 					<Typography>
 						{ props.authUser 
