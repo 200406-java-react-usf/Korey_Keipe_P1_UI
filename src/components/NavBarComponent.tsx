@@ -49,9 +49,9 @@ const NavbarComponent = (props: INavbarProps) => {
 		<>
 			<AppBar position="fixed">
 				<Toolbar>
-					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+					{/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
 					<MenuIcon />
-					</IconButton>
+					</IconButton> */}
 					<Typography variant="h6" className={classes.title}>
 						{ props.authUser ? <Link to="/home" className={classes.link}>{props.authUser.username} </Link> : <></> }
 					</Typography>
