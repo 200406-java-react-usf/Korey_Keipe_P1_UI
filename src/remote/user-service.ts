@@ -24,3 +24,9 @@ export async function registerUser(newUser: NewUser) {
 		});
 	return await response.data;
 }
+
+export const getReimbs = async () => {
+
+	let reimbs = await localClient.get('/reimbursements');
+	return reimbs.data;
+}
