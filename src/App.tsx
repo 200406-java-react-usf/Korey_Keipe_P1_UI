@@ -8,6 +8,7 @@ import LoginComponent from './components/LoginComponent';
 import RegisterComponent from './components/RegisterComponent';
 import UserComponent from './components/UserComponent';
 import { prependOnceListener } from 'cluster';
+import DashboardComponent from './components/DashboardComponent';
 
 function App() {
   
@@ -36,7 +37,8 @@ function App() {
           <Route path="/home" render={() => <HomeComponent authUser={authUser} setAuthUser={setAuthUser} /> } />          
           <Route path="/login" render={() => <LoginComponent authUser={authUser} setAuthUser={setAuthUser} errorMessage={errorMessage} /> } />          
           <Route path="/register" render={() => <RegisterComponent authUser={authUser} setNewUser={setNewUser} errorMessage={errorMessage} /> } /> 
-          <Route path="/users" render={() => <UserComponent authUser={authUser} /> } />        
+          <Route path="/users" render={() => <UserComponent authUser={authUser} /> } />
+          <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } />        
         </Switch>
       </Router>
     </>
