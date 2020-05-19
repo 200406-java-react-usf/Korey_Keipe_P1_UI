@@ -7,8 +7,8 @@ import HomeComponent from './components/HomeComponent';
 import LoginComponent from './components/LoginComponent';
 import RegisterComponent from './components/RegisterComponent';
 import UserComponent from './components/UserComponent';
-import { prependOnceListener } from 'cluster';
 import DashboardComponent from './components/DashboardComponent';
+import ReimbComponent from './components/ReimbComponent';
 
 function App() {
   
@@ -38,7 +38,8 @@ function App() {
           <Route path="/login" render={() => <LoginComponent authUser={authUser} setAuthUser={setAuthUser} errorMessage={errorMessage} /> } />          
           <Route path="/register" render={() => <RegisterComponent authUser={authUser} setNewUser={setNewUser} errorMessage={errorMessage} /> } /> 
           <Route path="/users" render={() => <UserComponent authUser={authUser} /> } />
-          <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } />        
+          <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } /> 
+          <Route path="/reimbursements" render={() => <ReimbComponent /> } />       
         </Switch>
       </Router>
     </>
