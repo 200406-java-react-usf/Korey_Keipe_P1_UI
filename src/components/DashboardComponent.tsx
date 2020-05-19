@@ -70,7 +70,7 @@ function DashboardComponent(props: IDashboardProps) {
 						</Typography>
 							<Grid container spacing={3}>
 								<Grid item xs>
-									<Paper className={classes.paper}><Link to={`/reimbursements/${props.authUser.user_id}`} className={classes.link}>MY REIMBURSEMENTS</Link></Paper>
+									<Paper className={classes.paper}><Link to={`/reimbursements`} className={classes.link}>MY REIMBURSEMENTS</Link></Paper>
 								</Grid>
 								<Grid item xs>
 									<Paper className={classes.paper}><Link to="/submit" className={classes.link}>NEW REIMBURSEMENT</Link></Paper>

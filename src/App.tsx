@@ -48,7 +48,6 @@ function App() {
           <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } /> 
           <Route path="/reimbursements" render={() => <ReimbComponent authUser={authUser}/> } />
           <Route path="/submit" render={() => <CreateReimbComp authUser={authUser} setNewReimb={setNewReimb} /> } />
-          <Route path={`/reimbursements/${authUser?.user_id}`} render={() => <ReimbComponent authUser={authUser}/> } />
                 
         </Switch>
         { thisUser ?

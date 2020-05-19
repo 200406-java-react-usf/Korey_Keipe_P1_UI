@@ -68,7 +68,9 @@ function ReimbComponent(props: IReimbProps) {
 			  
 		  for(let reimb of response) {
 			  reimbs.push(
-
+			<>	  
+				{ reimb.author_id === props.authUser?.user_id ? 	
+				<>
 				<Card className={classes.root} variant="outlined">
 					<CardContent>
 						<CardHeader title={'Reimbursement: '+ reimb.id} subheader={reimb.submitted} action={
@@ -122,7 +124,7 @@ function ReimbComponent(props: IReimbProps) {
 									<ExpandMoreIcon />
 								</IconButton>
 							</CardActions>
-						<Collapse in={expanded} timeout="auto" unmountOnExit>
+						{/* <Collapse in={expanded} timeout="auto" unmountOnExit>
 							<CardContent>
 								<Typography paragraph>Description:</Typography>
 								<Typography paragraph>
@@ -134,9 +136,13 @@ function ReimbComponent(props: IReimbProps) {
 									{reimb.auther_id}
 								</Typography>
 							</CardContent>
-						</Collapse>
+						</Collapse> */}
 					</CardContent>
 				</Card>
+				</> 
+				: <></> 
+				}
+			</>
 			)
 		}
 		setReimbState(reimbs);
