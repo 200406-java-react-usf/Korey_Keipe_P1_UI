@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../models/user';
-import { getUsers } from '../remote/user-service';
-import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
+import { getUsers, getUserById } from '../remote/user-service';
+import { Card, CardContent, Typography, makeStyles, CardHeader, IconButton } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Link } from 'react-router-dom';
 
 interface IUserProps{
     authUser: User;
+    setThisUser: ((thisUser: User) => void);
 }
 const useStyles = makeStyles({
     root: {
@@ -34,9 +37,9 @@ const useStyles = makeStyles({
 const UserComponent = (props: IUserProps) => {
     
     const classes = useStyles();
-
+    
     const [usersState, setUsersState] = useState([] as User[]);
-
+    
     let users: any[] = [];
 
     useEffect(() => {
@@ -48,6 +51,17 @@ const UserComponent = (props: IUserProps) => {
 				users.push(
 
                     <Card className={classes.root} variant="outlined">
+                        <CardHeader action={
+                            <IconButton aria-label="settings" > 
+                                <Link to={`/users/${user.user_id}`} onClick={ async () => {
+                                    const response = await getUserById(user.user_id);
+                                    props.setThisUser(response); 
+                                }}>
+                                <MoreVertIcon/>
+                                </Link>
+                            </IconButton>
+                        }
+                        />
                         <CardContent>
                             <Typography className={classes.title} variant="h6" color="textPrimary" gutterBottom>
                                 {user.first_name} {user.last_name} {'# ' + user.user_id}
