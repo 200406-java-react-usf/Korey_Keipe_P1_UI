@@ -73,7 +73,7 @@ function DashboardComponent(props: IDashboardProps) {
 									<Paper className={classes.paper}><Link to={`/reimbursements/${props.authUser.user_id}`} className={classes.link}>MY REIMBURSEMENTS</Link></Paper>
 								</Grid>
 								<Grid item xs>
-									<Paper className={classes.paper}><Link to="" className={classes.link}>NEW REIMBURSEMENT</Link></Paper>
+									<Paper className={classes.paper}><Link to="/submit" className={classes.link}>NEW REIMBURSEMENT</Link></Paper>
 								</Grid>
 							</Grid>
 					</>
