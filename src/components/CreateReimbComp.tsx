@@ -8,13 +8,13 @@ import {
     makeStyles 
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { Reimb } from '../models/reimb';
 import { User } from '../models/user';
 import { NewReimb } from '../models/newReimb';
+import { createReimb } from '../remote/reimb-service';
+import { Reimb } from '../models/reimb';
 
 interface ICreateReimbProps {
     authUser: User;
-    errorMessage: string;
     setNewReimb: (newReimb: Reimb) => void;
 }
 
@@ -37,8 +37,10 @@ function CreateReimbComp(props: ICreateReimbProps) {
 
 	const [amount, setAmount] = useState(0.00);
 	const [description, setDescription] = useState('');
-    const [type_id, setType] = useState (1);
-    const [errorMessage, setErrorMessage] = useState ('');
+	const [author_id, setAuther ] = useState(props.authUser?.user_id);
+	const [status_id, setStatus] = useState(1);
+	const [type_id, setType] = useState (1);
+	const [errorMessage, setErrorMessage] = useState('');
 
 	let updateAmount = (e: any) => {
 		setAmount(e.target.value);
@@ -52,18 +54,17 @@ function CreateReimbComp(props: ICreateReimbProps) {
 		setType(e.target.value);
 	}
 
-	let createReimb = async () => {
+	let create = async () => {
 
-        try{
-		let reimb = new NewReimb(amount, description, type_id);
-		let newReimb = await createReimb(reimb);
-		props.setNewReimb(newReimb)
-		console.log(newReimb);	
-        } catch (e) {
-            setErrorMessage(e);
-        }
+		try {
+		let reimb = new NewReimb(amount, description, author_id, type_id);
+		let response = await createReimb(reimb);
+		props.setNewReimb(response)
+		console.log(response);	
+		} catch (e) {
+			setErrorMessage(e)
+		}
     }
-
 
 	return (
 				
@@ -71,7 +72,7 @@ function CreateReimbComp(props: ICreateReimbProps) {
 				<div className={classes.registerContainer}>
 					<form className={classes.registerForm}>
 						<br/><br/>
-						<Typography align="center" variant="h4">Register</Typography>
+						<Typography align="center" variant="h4">New Reimbursement</Typography>
 
 						<FormControl margin="normal" fullWidth>
 							<InputLabel htmlFor="amount">Amount</InputLabel>
@@ -100,7 +101,7 @@ function CreateReimbComp(props: ICreateReimbProps) {
 								placeholder="type"/>
 						</FormControl>
 						<br/><br/>
-						<Button onClick={createReimb} variant="contained" color="primary" size="medium">Submit</Button>
+						<Button onClick={create} variant="contained" color="primary" size="medium">Submit</Button>
 						<br/><br/>
 						{
 							errorMessage
