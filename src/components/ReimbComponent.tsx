@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Reimb } from '../models/reimb';
-import { getReimbs } from '../remote/user-service';
+import { getReimbs } from '../remote/reimb-service';
 import { IconButton, Collapse, CardHeader } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
