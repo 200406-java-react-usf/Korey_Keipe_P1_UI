@@ -10,8 +10,11 @@ import { IconButton, Collapse, CardHeader } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { User } from '../models/user';
 
-
+interface IReimbProps {
+	authUser: User;
+}
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({  
 		root: {
@@ -45,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		}
 }));
 
-function ReimbComponent() {
+function ReimbComponent(props: IReimbProps) {
 
   const classes = useStyles();
 
