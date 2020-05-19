@@ -41,35 +41,18 @@ function DashboardComponent(props: IDashboardProps) {
 					</Typography>
 						<Grid container spacing={3}>
 							<Grid item xs>
-								<Paper className={classes.paper}><Link to="/users" className={classes.link}>USERS</Link></Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={classes.paper}><Link to="" className={classes.link}>REIMBURSEMENTS</Link></Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={classes.paper}><Link to="" className={classes.link}>...</Link></Paper>
-							</Grid>
-						</Grid>
-						<Grid container spacing={3}>
-							<Grid item xs>
-								<Paper className={classes.paper}><Link to="/register" className={classes.link}>ADD USER</Link></Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={classes.paper}><Link to="" className={classes.link}>REMOVE USER</Link></Paper>
+								<Paper className={classes.paper}><Link to="/register" className={classes.link}>NEW USER</Link></Paper>
 							</Grid>
 							<Grid item xs>
 								<Paper className={classes.paper}><Link to="" className={classes.link}>UPDATE USER</Link></Paper>
 							</Grid>
+							<Grid item xs>
+								<Paper className={classes.paper}><Link to="" className={classes.link}>DELETE</Link></Paper>
+							</Grid>
 						</Grid>
 						<Grid container spacing={3}>
 							<Grid item xs>
-								<Paper className={classes.paper}><Link to="" className={classes.link}>ADD USER</Link></Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={classes.paper}><Link to="" className={classes.link}>REMOVE USER</Link></Paper>
-							</Grid>
-							<Grid item xs>
-								<Paper className={classes.paper}><Link to="" className={classes.link}>UPDATE USER</Link></Paper>
+								<Paper className={classes.paper}><Link to="/users" className={classes.link}>ALL USERS</Link></Paper>
 							</Grid>
 						</Grid>
 						</>
@@ -81,13 +64,7 @@ function DashboardComponent(props: IDashboardProps) {
 						</Typography>
 							<Grid container spacing={3}>
 								<Grid item xs>
-									<Paper className={classes.paper}><Link to="" className={classes.link}>ADD</Link></Paper>
-								</Grid>
-								<Grid item xs>
-									<Paper className={classes.paper}><Link to="" className={classes.link}>REMOVE</Link></Paper>
-								</Grid>
-								<Grid item xs>
-									<Paper className={classes.paper}><Link to="" className={classes.link}>EDIT</Link></Paper>
+									<Paper className={classes.paper}><Link to="/reimbursements" className={classes.link}>VIEW REIMBURSEMENTS</Link></Paper>
 								</Grid>
 							</Grid>
 					</>
@@ -100,9 +77,6 @@ function DashboardComponent(props: IDashboardProps) {
 							<Grid container spacing={3}>
 								<Grid item xs>
 									<Paper className={classes.paper}><Link to="" className={classes.link}>MY REIMBURSEMENTS</Link></Paper>
-								</Grid>
-								<Grid item xs>
-									<Paper className={classes.paper}><Link to="" className={classes.link}>MY PROFILE</Link></Paper>
 								</Grid>
 								<Grid item xs>
 									<Paper className={classes.paper}><Link to="" className={classes.link}>NEW REIMBURSEMENT</Link></Paper>
