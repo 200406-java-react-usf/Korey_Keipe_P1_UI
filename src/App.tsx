@@ -10,6 +10,7 @@ import UserComponent from './components/UserComponent';
 import DashboardComponent from './components/DashboardComponent';
 import ReimbComponent from './components/ReimbComponent';
 import UpdateUserComp from './components/UpdateUserComp';
+import CreateReimbComp from './components/CreateReimbComp';
 
 function App() {
   
@@ -18,9 +19,10 @@ function App() {
   // @ts-ignore
   const [newUser, setNewUser] = useState(null as User);
   // @ts-ignore
+  const [newReimb, setNewReimb] = useState(null as Reimb);
+  // @ts-ignore
   const [thisUser, setThisUser] = useState(null as User);
   console.log(thisUser);
-  
   const [errorMessage, setErrorMessage] = useState('');
   
   return (
@@ -45,6 +47,7 @@ function App() {
           <Route path="/users" render={() => <UserComponent authUser={authUser} setThisUser={setThisUser} /> } />
           <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } /> 
           <Route path="/reimbursements" render={() => <ReimbComponent authUser={authUser}/> } />
+          <Route path="/submit" render={() => <CreateReimbComp authUser={authUser} setNewReimb={setNewReimb} /> } />
           <Route path={`/reimbursements/${authUser?.user_id}`} render={() => <ReimbComponent authUser={authUser}/> } />
                 
         </Switch>
