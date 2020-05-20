@@ -3,8 +3,7 @@ import {
     Typography, 
     FormControl, 
     InputLabel, 
-    Input, 
-    Button, 
+    Input,  
     makeStyles, 
 	Select
 } from '@material-ui/core';
@@ -13,6 +12,7 @@ import { User } from '../models/user';
 import { NewReimb } from '../models/newReimb';
 import { createReimb } from '../remote/reimb-service';
 import { Reimb } from '../models/reimb';
+import { Link } from 'react-router-dom';
 
 interface ICreateReimbProps {
     authUser: User;
@@ -29,6 +29,10 @@ const useStyles = makeStyles({
     },
     registerForm: {
         width: "50%"
+	},
+	link: {
+        textDecoration: 'none',
+        color: 'white'
     }
 });
 
@@ -102,7 +106,7 @@ function SubmitReimbComp(props: ICreateReimbProps) {
                             </Select>
                     	</FormControl>
 						<br/><br/>
-						<Button onClick={create} variant="contained" color="primary" size="medium">Submit</Button>
+						<Link to="/dashboard" onClick={create} className={classes.link}>Submit</Link>
 						<br/><br/>
 						{
 							errorMessage
