@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     }
 });
 
-function CreateReimbComp(props: ICreateReimbProps) {
+function SubmitReimbComp(props: ICreateReimbProps) {
 
 	const classes = useStyles();
 
@@ -117,4 +117,4 @@ function CreateReimbComp(props: ICreateReimbProps) {
 		)
 }
 
-export default CreateReimbComp;
+export default SubmitReimbComp;
