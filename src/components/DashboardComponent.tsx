@@ -60,6 +60,9 @@ function DashboardComponent(props: IDashboardProps) {
 								<Grid item xs>
 									<Paper className={classes.paper}><Link to="/reimbursements" className={classes.link}>VIEW REIMBURSEMENTS</Link></Paper>
 								</Grid>
+								<Grid item xs>
+									<Paper className={classes.paper}><Link to="/submit" className={classes.link}>NEW REIMBURSEMENT</Link></Paper>
+								</Grid>
 							</Grid>
 					</>
 					: <></> }
