@@ -5,9 +5,7 @@ import {
 	Typography,
 	AppBar,
 	Toolbar,
-	IconButton,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import { logOut } from '../remote/user-service';
 
@@ -49,17 +47,8 @@ const NavbarComponent = (props: INavbarProps) => {
 		<>
 			<AppBar position="fixed">
 				<Toolbar>
-					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-					<MenuIcon />
-					</IconButton>
 					<Typography variant="h6" className={classes.title}>
-						{ props.authUser ? <Link to="/home" className={classes.link}>{props.authUser.username} </Link> : <></> }
-					</Typography>
-					<Typography variant="h6" className={classes.title}>
-						{ props.authUser ? <Link to="/admin" className={classes.link}>Amin</Link> :	<></> }
-					</Typography>
-					<Typography variant="h6" className={classes.title}>
-						{ props.authUser ? <Link to="/register" className={classes.link}>Register</Link> :	<></> }
+						{ props.authUser ? <Link to="/dashboard" className={classes.link}>{props.authUser.username} </Link> : <></> }
 					</Typography>
 					<Typography>
 						{ props.authUser 

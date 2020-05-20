@@ -1,15 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../models/user';
-import { getUsers } from '../remote/user-service';
+import { getUsers, getUserById } from '../remote/user-service';
+import { Card, CardContent, Typography, makeStyles, CardHeader, IconButton, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, createStyles, Theme, Menu, MenuItem } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Link } from 'react-router-dom';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 
 interface IUserProps{
     authUser: User;
+    setThisUser: ((thisUser: User) => void);
 }
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      minWidth: 275,
+      maxWidth: '50%',
+      margin: 'auto',
+      textAlign: 'center',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    bullet: {
+      display: 'flex',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    title: {
+      fontSize: 24,
+    },
+    pos: {
+      marginBottom: 12,
+      textAlign: 'left'
+    },
+    id: {
+        textAlign: 'left'
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+    }
+  }));
 
 const UserComponent = (props: IUserProps) => {
     
+    const classes = useStyles();
+    
     const [usersState, setUsersState] = useState([] as User[]);
-
+    
     let users: any[] = [];
 
     useEffect(() => {
@@ -19,23 +57,52 @@ const UserComponent = (props: IUserProps) => {
 				
 			for(let user of response) {
 				users.push(
-					<tr>
-                        <td>{user.user_id}</td>
-                        <td>{user.first_name}</td>
-                        <td>{user.last_name}</td>
-                        <td>{user.username}</td>
-                        <td>{user.email}</td>
 
-                        {
-                        user.role_id === 1 ?
-                            <td>Admin</td> 
-                            :
-                        user.role_id === 2 ?
-                            <td>Financial Manager</td>
-                            :
-                            <td>User</td>
+                    <Card className={classes.root} variant="outlined">
+                        <CardHeader action={
+                            <IconButton aria-label="settings" >
+                                <Link to={`/user/${user.user_id}`} onClick={ async () => {
+                                    const response = await getUserById(user.user_id);
+                                    props.setThisUser(response);
+                                    console.log(response);
+                                }}>
+                                    <MoreVertIcon/>
+                                </Link>
+                            </IconButton>
                         }
-                    </tr>
+                        />
+                        <CardContent>       
+                            <Typography className={classes.title} variant="h6" color="textPrimary" gutterBottom>
+                                {user.first_name} {user.last_name} {'# ' + user.user_id}
+                            </Typography>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                                >
+                                <Typography className={classes.heading}>Details</Typography>
+                                </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
+                                        <Typography className={classes.pos} color="textSecondary">
+                                            {'Username: ' + user.username}
+                                                <br/>
+                                            {'Email: ' + user.email}
+                                                <br/>
+                                            {
+                                                user.role_id === 1 ?
+                                                <td>Role: Admin</td> 
+                                                :
+                                                user.role_id === 2 ?
+                                                <td>Role: Financial Manager</td>
+                                                :
+                                                <td>Role: User</td>
+                                            }
+                                        </Typography>
+                                    </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        </CardContent>
+                    </Card>
 				)
 			}
 			setUsersState(users);
@@ -45,31 +112,8 @@ const UserComponent = (props: IUserProps) => {
 	},[]);
 
     return (
-		!props.authUser || (props.authUser.role_id !== 1) ?
-        
         <>
-            <h1>Youre not authorized to view this page</h1>
-        </>
-        :
-        <>
-            <h1>User Component</h1>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {usersState}
-                </tbody>
-            </table>
+            {usersState}
         </>
     );
 }

@@ -4,7 +4,6 @@ import { User } from '../models/user';
 import { Redirect } from 'react-router-dom';
 
 interface IHomeProps {
-	username: string;
 	authUser: User;
 	setAuthUser: (user: User) => void;
 }
@@ -27,11 +26,11 @@ const HomeComponent = (props: IHomeProps) => {
 	const classes = useStyles();
 
 	return (
-		!props.username ?
-		<Redirect to="/login" /> :
+		// !props.authUser ?
+		// <Redirect to="/login" /> :
 		<>
 			<div className={classes.Container}>
-				<h1> Welcome, {props.username}!</h1>
+				<h1> Welcome, {props.authUser?.username}!</h1>
 			</div>
 		</>	
 	);

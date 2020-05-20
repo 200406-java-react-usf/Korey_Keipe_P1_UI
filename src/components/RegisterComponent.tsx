@@ -4,13 +4,14 @@ import {
     FormControl, 
     InputLabel, 
     Input, 
-    Button, 
-    makeStyles 
+    makeStyles, 
+    Select
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { registerUser } from '../remote/user-service';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
+import { Link } from 'react-router-dom';
 
 interface IRegisterProps {
     authUser: User;
@@ -28,6 +29,10 @@ const useStyles = makeStyles({
     },
     registerForm: {
         width: "50%"
+    },
+    link: {
+        textDecoration: 'none',
+        color: 'white'
     }
 });
 
@@ -37,8 +42,8 @@ function RegisterComponent(props: IRegisterProps) {
 
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState ('');
+	const [first_name, setFirstName] = useState('');
+	const [last_name, setLastName] = useState ('');
 	const [email, setEmail] = useState ('');
     const [role_id, setRole] = useState (1);
     const [errorMessage, setErrorMessage] = useState ('');
@@ -70,7 +75,7 @@ function RegisterComponent(props: IRegisterProps) {
 	let register = async () => {
 
         try{
-		let user = new NewUser(username, password, firstName, lastName, email, role_id);
+		let user = new NewUser(username, password, first_name, last_name, email, role_id);
 		let newUser = await registerUser(user);
 		props.setNewUser(newUser)
 		console.log(newUser);	
@@ -109,7 +114,7 @@ function RegisterComponent(props: IRegisterProps) {
                         <InputLabel htmlFor="firstName">First Name</InputLabel>
                         <Input 
                             onChange={updateFirstName}
-                            value={firstName}
+                            value={first_name}
                             id="firstName" type="text"
                             placeholder="Enter first name"/>
                     </FormControl>
@@ -118,7 +123,7 @@ function RegisterComponent(props: IRegisterProps) {
                         <InputLabel htmlFor="lastName">Last Name</InputLabel>
                         <Input 
                             onChange={updateLastName}
-                            value={lastName}
+                            value={last_name}
                             id="lastName" type="text"
                             placeholder="Enter last name"/>
                     </FormControl>
@@ -131,17 +136,18 @@ function RegisterComponent(props: IRegisterProps) {
                             id="email" type="text"
                             placeholder="Enter email"/>
                     </FormControl>
-					
-					<FormControl margin="normal" fullWidth>
-                        <InputLabel htmlFor="role_id">Role</InputLabel>
-                        <Input 
-                            onChange={updateRole}
-                            value={role_id}
-                            id="role" type="text"
-                            placeholder="Enter user role"/>
+                    
+                    <FormControl>
+                        <InputLabel htmlFor="age-native-simple">Role</InputLabel>
+                            <Select native onChange = {updateRole}>
+                                <option aria-label="None" value="" />
+                                <option value = {1}>Admin</option>
+                                <option value = {2}>Manager</option>
+                                <option value = {3}>User</option>
+                            </Select>
                     </FormControl>
                     <br/><br/>
-                    <Button onClick={register} variant="contained" color="primary" size="medium">Register</Button>
+                    <Link to="/dashboard" onClick={register} className={classes.link}> REGISTER </Link>
                     <br/><br/>
                     {
                         errorMessage
