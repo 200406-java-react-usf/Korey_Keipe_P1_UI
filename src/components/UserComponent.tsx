@@ -53,16 +53,17 @@ const UserComponent = (props: IUserProps) => {
                     <Card className={classes.root} variant="outlined">
                         <CardHeader action={
                             <IconButton aria-label="settings" > 
-                                <Link to={`/users/${user.user_id}`} onClick={ async () => {
+                                <Link to={`/user/${user.user_id}`} onClick={ async () => {
                                     const response = await getUserById(user.user_id);
-                                    props.setThisUser(response); 
+                                    props.setThisUser(response);
+                                    console.log(response);
                                 }}>
                                 <MoreVertIcon/>
                                 </Link>
                             </IconButton>
                         }
                         />
-                        <CardContent>
+                        <CardContent>       
                             <Typography className={classes.title} variant="h6" color="textPrimary" gutterBottom>
                                 {user.first_name} {user.last_name} {'# ' + user.user_id}
                             </Typography>

@@ -4,13 +4,13 @@ import {
     FormControl, 
     InputLabel, 
     Input, 
-    Button, 
-    makeStyles 
+	makeStyles
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { updateUser } from '../remote/user-service';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
+import { Link } from 'react-router-dom';
 
 interface IUpdateUserProps {
 	thisUser: User;
@@ -19,7 +19,7 @@ interface IUpdateUserProps {
 }
 
 function UpdateUserComp (props: IUpdateUserProps) {
-
+	
 	const useStyles = makeStyles({
 		registerContainer: {
 			display: "flex",
@@ -35,10 +35,11 @@ function UpdateUserComp (props: IUpdateUserProps) {
 	
 		const classes = useStyles();
 	
+		const [user_id, setUserId] = useState(props.thisUser.user_id);
 		const [username, setUsername] = useState(props.thisUser.username);
 		const [password, setPassword] = useState(props.thisUser.password);
-		const [firstName, setFirstName] = useState(props.thisUser.firstName);
-		const [lastName, setLastName] = useState (props.thisUser.lastName);
+		const [first_name, setFirstName] = useState(props.thisUser.first_name);
+		const [last_name, setLastName] = useState (props.thisUser.last_name);
 		const [email, setEmail] = useState (props.thisUser.email);
 		const [role_id, setRole] = useState (props.thisUser.role_id);
 		const [errorMessage, setErrorMessage] = useState ('');
@@ -70,10 +71,9 @@ function UpdateUserComp (props: IUpdateUserProps) {
 		let update = async () => {
 	
 			try{
-			let newUpdate = new NewUser(username, password, firstName, lastName, email, role_id);
+			let newUpdate = new User(user_id, username, password, first_name, last_name, email, role_id);
 			let updatedUser = await updateUser(newUpdate);
 			props.setNewUser(updatedUser)
-			console.log(updatedUser);	
 			} catch (e) {
 				setErrorMessage(e);
 			}
@@ -85,7 +85,7 @@ function UpdateUserComp (props: IUpdateUserProps) {
 				<div className={classes.registerContainer}>
 					<form className={classes.registerForm}>
 						<br/><br/>
-						<Typography align="center" variant="h4">Register</Typography>
+						<Typography align="center" variant="h4">Update User</Typography>
 	
 						<FormControl margin="normal" fullWidth>
 							<InputLabel htmlFor="username">Username</InputLabel>
@@ -109,7 +109,7 @@ function UpdateUserComp (props: IUpdateUserProps) {
 							<InputLabel htmlFor="firstName">First Name</InputLabel>
 							<Input 
 								onChange={updateFirstName}
-								value={firstName}
+								value={first_name}
 								id="firstName" type="text"
 								placeholder="Enter first name"/>
 						</FormControl>
@@ -118,7 +118,7 @@ function UpdateUserComp (props: IUpdateUserProps) {
 							<InputLabel htmlFor="lastName">Last Name</InputLabel>
 							<Input 
 								onChange={updateLastName}
-								value={lastName}
+								value={last_name}
 								id="lastName" type="text"
 								placeholder="Enter last name"/>
 						</FormControl>
@@ -140,9 +140,10 @@ function UpdateUserComp (props: IUpdateUserProps) {
 								id="role" type="text"
 								placeholder="Enter user role"/>
 						</FormControl>
-						<br/><br/>
-						<Button onClick={update} variant="contained" color="primary" size="medium">Update</Button>
-						<br/><br/>
+							<br/><br/>
+							<Link to="/dashboard" onClick={update} > UPDATE </Link>
+							<br/><br/>
+							
 						{
 							errorMessage
 							? 
