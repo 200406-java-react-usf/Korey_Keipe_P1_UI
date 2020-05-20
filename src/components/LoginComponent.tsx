@@ -4,14 +4,18 @@ import {
     FormControl, 
     InputLabel, 
     Input, 
-    Button, 
     makeStyles 
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-
+import { Link } from 'react-router-dom';
 import { authenticate } from '../remote/auth-service';
 import { User } from '../models/user';
 import { Redirect } from 'react-router-dom';
+
+import { teal, cyan } from '@material-ui/core/colors';
+
+const primary = teal[500]; 
+const accent = cyan[900]; 
 
 interface ILoginProps {
     authUser: User | undefined;
@@ -29,6 +33,10 @@ const useStyles = makeStyles({
     },
     loginForm: {
         width: "50%"
+    },
+    link: {
+        textDecoration: 'none',
+        color: accent
     }
 });
 
@@ -81,7 +89,7 @@ function LoginComponent(props: ILoginProps) {
                             placeholder="Enter your password"/>
                     </FormControl>
                     <br/><br/>
-                    <Button onClick={login} variant="contained" color="primary" size="medium">Login</Button>
+                        <Link to="dashboard" onClick={login} className={classes.link}> LOGIN </Link>
                     <br/><br/>
                     {
                         errorMessage 
