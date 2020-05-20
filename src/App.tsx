@@ -10,7 +10,9 @@ import UserComponent from './components/UserComponent';
 import DashboardComponent from './components/DashboardComponent';
 import ReimbComponent from './components/ReimbComponent';
 import UpdateUserComp from './components/UpdateUserComp';
-import CreateReimbComp from './components/CreateReimbComp';
+import UpdateReimbComp from './components/UpdateReimbComp';
+import SubmitReimbComp from './components/SubmitReimbComp';
+import { Reimb } from './models/reimb';
 
 function App() {
   
@@ -22,6 +24,9 @@ function App() {
   const [newReimb, setNewReimb] = useState(null as Reimb);
   // @ts-ignore
   const [thisUser, setThisUser] = useState(null as User);
+  // @ts-ignore
+  const [thisReimb, setThisReimb] = useState(null as Reimb);
+
   const [errorMessage, setErrorMessage] = useState('');
   
   return (
@@ -45,9 +50,10 @@ function App() {
           <Route path="/register" render={() => <RegisterComponent authUser={authUser} setNewUser={setNewUser} errorMessage={errorMessage} /> } /> 
           <Route path="/users" render={() => <UserComponent authUser={authUser} setThisUser={setThisUser} /> } />
           <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } /> 
-          <Route path="/reimbursements" render={() => <ReimbComponent authUser={authUser}/> } />
-          <Route path="/submit" render={() => <CreateReimbComp authUser={authUser} setNewReimb={setNewReimb} /> } />
-          <Route path={`/user/${thisUser?.user_id}`} exact render={() => <UpdateUserComp thisUser={thisUser} setThisUser={setThisUser} setNewUser={setNewUser} /> } /> 
+          <Route path="/reimbursements" render={() => <ReimbComponent authUser={authUser} setThisReimb={setThisReimb}/> } />
+          <Route path="/submit" render={() => <SubmitReimbComp authUser={authUser} setNewReimb={setNewReimb} /> } />
+          <Route path={`/user/${thisUser?.user_id}`} render={() => <UpdateUserComp thisUser={thisUser} setThisUser={setThisUser} setNewUser={setNewUser} /> } /> 
+          <Route path={`/reimbursement/${thisReimb?.id}`} render={() => <UpdateReimbComp thisReimb={thisReimb} setNewReimb={setNewReimb} setThisReimb={setThisReimb} /> } />
         </Switch>
       </Router>
     </>
