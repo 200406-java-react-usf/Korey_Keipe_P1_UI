@@ -5,15 +5,17 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Reimb } from '../models/reimb';
-import { getReimbs } from '../remote/reimb-service';
+import { getReimbs, getReimbById } from '../remote/reimb-service';
 import { IconButton, Collapse, CardHeader } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { User } from '../models/user';
+import { Link } from 'react-router-dom';
 
 interface IReimbProps {
 	authUser: User;
+	setThisReimb: (reimb: Reimb) => void;
 }
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({  
@@ -67,15 +69,19 @@ function ReimbComponent(props: IReimbProps) {
 		  const response = await getReimbs();
 			  
 		  for(let reimb of response) {
-			  reimbs.push(
-			<>	  
-				{ reimb.author_id === props.authUser?.user_id ? 	
+			  reimbs.push( 	
 				<>
 				<Card className={classes.root} variant="outlined">
 					<CardContent>
 						<CardHeader title={'Reimbursement: '+ reimb.id} subheader={reimb.submitted} action={
 							<IconButton aria-label="settings">
-								<MoreVertIcon />
+								<Link to={`/reimbursement/${reimb.id}`} onClick={ async () => {
+                                    const response = await getReimbById(reimb.id);
+                                    props.setThisReimb(response);
+                                    console.log(response);
+                                }}>
+                                	<MoreVertIcon/>
+                                </Link>
 							</IconButton> }	
 						/>
 						<Typography variant="h5" component="h2">
@@ -85,31 +91,38 @@ function ReimbComponent(props: IReimbProps) {
 							{reimb.description}
 						</Typography>
 						<Typography className={classes.pos} color="textSecondary">
-							<td>
-							{
-								reimb.status_id === 1 ?
-								<td>Status: Pending</td> 
-								:
-								reimb.status_id === 2 ?
-								<td>Status: Approved</td>
-								:
-								<td>Status: Denied</td>
-                            }
-							</td>
-							<td>
-							{
-								reimb.type_id === 1 ?
-								<td>Type: Lodging</td> 
-								:
-								reimb.type_id === 2 ?
-								<td>Type: Travel</td>
-								:
-								reimb.type_id === 3 ?
-								<td>Type: Food</td>
-								:
-								<td>Type: Other</td>
-                            }
-							</td>
+							
+								<td>
+								{
+									reimb.status_id === 1 ?
+									<td>Status: Pending</td> 
+									:
+									reimb.status_id === 2 ?
+									<td>Status: Approved</td>
+									:
+									<td>Status: Denied</td>
+								}
+								</td>
+								<span>  </span>
+								<td>
+								{
+									reimb.type_id === 1 ?
+									<td>Type: Lodging</td> 
+									:
+									reimb.type_id === 2 ?
+									<td>Type: Travel</td>
+									:
+									reimb.type_id === 3 ?
+									<td>Type: Food</td>
+									:
+									<td>Type: Other</td>
+								}
+								</td>
+								<span>  </span>
+								<td>
+									{`Author Id: ${reimb.author_id}`}
+								</td>
+								
 						</Typography>
 
 							<CardActions>
@@ -140,9 +153,6 @@ function ReimbComponent(props: IReimbProps) {
 					</CardContent>
 				</Card>
 				</> 
-				: <></> 
-				}
-			</>
 			)
 		}
 		setReimbState(reimbs);
