@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Reimb } from '../models/reimb';
 import { getReimbs, getReimbById } from '../remote/reimb-service';
-import { IconButton, Collapse, CardHeader } from '@material-ui/core';
+import { IconButton, CardHeader, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import clsx from 'clsx';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { User } from '../models/user';
 import { Link } from 'react-router-dom';
@@ -37,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		pos: {
 			marginBottom: 12,
+			textAlign: 'left'
 		},
 		expand: {
 			transform: 'rotate(0deg)',
@@ -47,6 +46,17 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		expandOpen: {
 			transform: 'rotate(180deg)',
+		},
+		heading: {
+			fontSize: theme.typography.pxToRem(15),
+			fontWeight: theme.typography.fontWeightRegular,
+		},
+		link: {
+			textDecoration: 'none',
+			color: 'white',
+			marginBottom: 12,
+			textAlign: 'center',
+			padding: '10 em'
 		}
 }));
 
@@ -55,25 +65,20 @@ function ReimbComponent(props: IReimbProps) {
   const classes = useStyles();
 
   const [reimbState, setReimbState] = useState([] as Reimb[]);
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   let reimbs: any[] = [];
 
   useEffect(() => {
 	  async function fetchData() {
 
-		  const response = await getReimbs();
+		const response = await getReimbs();
 			  
 		  for(let reimb of response) {
-			  reimbs.push( 	
-				<>
+			reimbs.push( 	
+			<>
 				<Card className={classes.root} variant="outlined">
 					<CardContent>
-						<CardHeader title={'Reimbursement: '+ reimb.id} subheader={reimb.submitted} action={
+						<CardHeader title={'Reimbursement: '+ reimb.id} action={
 							<IconButton aria-label="settings">
 								<Link to={`/reimbursement/${reimb.id}`} onClick={ async () => {
                                     const response = await getReimbById(reimb.id);
@@ -87,72 +92,56 @@ function ReimbComponent(props: IReimbProps) {
 						<Typography variant="h5" component="h2">
 							{'$' + reimb.amount}
 						</Typography>
-						<Typography className={classes.pos} color="textSecondary">
+						<Typography className={classes.root} color="textSecondary">
 							{reimb.description}
 						</Typography>
-						<Typography className={classes.pos} color="textSecondary">
-							
-								<td>
-								{
-									reimb.status_id === 1 ?
-									<td>Status: Pending</td> 
-									:
-									reimb.status_id === 2 ?
-									<td>Status: Approved</td>
-									:
-									<td>Status: Denied</td>
-								}
-								</td>
-								<span>  </span>
-								<td>
-								{
-									reimb.type_id === 1 ?
-									<td>Type: Lodging</td> 
-									:
-									reimb.type_id === 2 ?
-									<td>Type: Travel</td>
-									:
-									reimb.type_id === 3 ?
-									<td>Type: Food</td>
-									:
-									<td>Type: Other</td>
-								}
-								</td>
-								<span>  </span>
-								<td>
-									{`Author Id: ${reimb.author_id}`}
-								</td>
-								
-						</Typography>
-
-							<CardActions>
-								<IconButton
-									className={clsx(classes.expand, {
-										[classes.expandOpen]: expanded,
-									})}
-									onClick={handleExpandClick}
-									aria-expanded={expanded}
-									aria-label="show details"
+							<ExpansionPanel>
+								<ExpansionPanelSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls="panel1a-content"
+									id="panel1a-header"
 									>
-									<ExpandMoreIcon />
-								</IconButton>
-							</CardActions>
-						{/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-							<CardContent>
-								<Typography paragraph>Description:</Typography>
-								<Typography paragraph>
-									{reimb.description}
-								</Typography>
-								<Typography paragraph>
-								</Typography>
-								<Typography paragraph>
-									{reimb.auther_id}
-								</Typography>
-							</CardContent>
-						</Collapse> */}
+									<Typography className={classes.heading}>Detials</Typography>
+								</ExpansionPanelSummary>
+									<ExpansionPanelDetails>
+										<Typography className={classes.pos} color="textSecondary">
+											<tr>
+											{
+												reimb.status_id === 1 ?
+												<td>Status: Pending</td> 
+												:
+												reimb.status_id === 2 ?
+												<td>Status: Approved</td>
+												:
+												<td>Status: Denied</td>
+											}
+											</tr>
+											<tr>
+											{
+												reimb.type_id === 1 ?
+												<td>Type: Lodging</td> 
+												:
+												reimb.type_id === 2 ?
+												<td>Type: Travel</td>
+												:
+												reimb.type_id === 3 ?
+												<td>Type: Food</td>
+												:
+												<td>Type: Other</td>
+											}
+											</tr>
+											<tr>
+												{`Author Id: ${reimb.author_id}`}
+											</tr>
+											<tr>
+												{`Submitted: ${reimb.submitted}`}
+											</tr>
+										</Typography>
+									</ExpansionPanelDetails>
+							</ExpansionPanel>
 					</CardContent>
 				</Card>
-				</> 
+			</> 
 			)
 		}
 		setReimbState(reimbs);
