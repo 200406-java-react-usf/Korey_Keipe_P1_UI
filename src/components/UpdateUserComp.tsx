@@ -7,12 +7,13 @@ import {
 	makeStyles
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { updateUser } from '../remote/user-service';
+import { updateUser, deleteById } from '../remote/user-service';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
 import { Link } from 'react-router-dom';
 
 interface IUpdateUserProps {
+	authUser: User;
 	thisUser: User;
 	setThisUser: (user: NewUser) => void;
 	setNewUser: (newUser: NewUser) => void;
@@ -30,6 +31,10 @@ function UpdateUserComp (props: IUpdateUserProps) {
 		},
 		registerForm: {
 			width: "50%"
+		},
+		link: {
+			textDecoration: 'none',
+			color: 'white'
 		}
 	});
 	
@@ -74,6 +79,16 @@ function UpdateUserComp (props: IUpdateUserProps) {
 			let newUpdate = new User(user_id, username, password, first_name, last_name, email, role_id);
 			let updatedUser = await updateUser(newUpdate);
 			props.setNewUser(updatedUser)
+			} catch (e) {
+				setErrorMessage(e);
+			}
+		}
+
+		let remove = async () => {
+
+			try {
+				let response = await deleteById(props.thisUser.user_id);
+				return response;
 			} catch (e) {
 				setErrorMessage(e);
 			}
@@ -141,9 +156,12 @@ function UpdateUserComp (props: IUpdateUserProps) {
 								placeholder="Enter user role"/>
 						</FormControl>
 							<br/><br/>
-							<Link to="/dashboard" onClick={update} > UPDATE </Link>
+							<Link to="/dashboard" onClick={update} className={classes.link}> UPDATE </Link>
 							<br/><br/>
-							
+							{ props.authUser.role_id === 1 ? 
+							<Link to="/dashboard" onClick={remove} className={classes.link}> REMOVE </Link>
+							:
+							<></> }
 						{
 							errorMessage
 							? 
