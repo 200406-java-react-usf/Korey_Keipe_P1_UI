@@ -1,9 +1,9 @@
 import { remoteClient } from './client';
-import { localClient } from './client';
+// import { localClient } from './client';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
 
-let currentClient = localClient;
+let currentClient = remoteClient;
 
 export const getUsers = async () => {
 
