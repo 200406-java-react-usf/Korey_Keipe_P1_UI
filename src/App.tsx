@@ -52,7 +52,7 @@ function App() {
           <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } /> 
           <Route path="/reimbursements" render={() => <ReimbComponent authUser={authUser} setThisReimb={setThisReimb}/> } />
           <Route path="/submit" render={() => <SubmitReimbComp authUser={authUser} setNewReimb={setNewReimb} /> } />
-          <Route path={`/user/${thisUser?.user_id}`} render={() => <UpdateUserComp thisUser={thisUser} setThisUser={setThisUser} setNewUser={setNewUser} /> } /> 
+          <Route path={`/user/${thisUser?.user_id}`} render={() => <UpdateUserComp authUser={authUser} thisUser={thisUser} setThisUser={setThisUser} setNewUser={setNewUser} /> } /> 
           <Route path={`/reimbursement/${thisReimb?.id}`} render={() => <UpdateReimbComp authUser={authUser} thisReimb={thisReimb} setNewReimb={setNewReimb} setThisReimb={setThisReimb} /> } />
         </Switch>
       </Router>
