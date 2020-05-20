@@ -48,3 +48,9 @@ export const getUserById = async (user_id: number) => {
 	let response = await currentClient.get(`/users/${user_id}`)
 	return response.data;
 }
+
+export const deleteById = async (user_id: number) => {
+
+	let response = await currentClient.delete(`/users/${user_id}`)
+	return response.data;
+}
