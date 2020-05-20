@@ -32,10 +32,12 @@ const userStyles = makeStyles((theme: Theme) =>
 	},
 	title: {
 		flexGrow: 1,
+		fontWeight: 'bold'
 	},
 	link: {
         textDecoration: 'none',
-        color: accent
+		color: accent,
+		fontWeight: 'bold'
     }
 	}),
 );

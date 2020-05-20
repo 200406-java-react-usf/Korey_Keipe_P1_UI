@@ -12,10 +12,11 @@ import { authenticate } from '../remote/auth-service';
 import { User } from '../models/user';
 import { Redirect } from 'react-router-dom';
 
-import { teal, cyan } from '@material-ui/core/colors';
+import { teal, cyan, grey } from '@material-ui/core/colors';
 
 const primary = teal[500]; 
-const accent = cyan[900]; 
+const accent = cyan[900];
+const container = grey[800]; 
 
 interface ILoginProps {
     authUser: User | undefined;
@@ -32,11 +33,12 @@ const useStyles = makeStyles({
         padding: 20
     },
     loginForm: {
-        width: "50%"
+        width: "50%",
     },
     link: {
         textDecoration: 'none',
-        color: accent
+        color: accent,
+        fontWeight: 'bold'
     }
 });
 
@@ -89,7 +91,7 @@ function LoginComponent(props: ILoginProps) {
                             placeholder="Enter your password"/>
                     </FormControl>
                     <br/><br/>
-                        <Link to="dashboard" onClick={login} className={classes.link}> LOGIN </Link>
+                        <Link to="/dashboard" onClick={login} className={classes.link}> LOGIN </Link>
                     <br/><br/>
                     {
                         errorMessage 

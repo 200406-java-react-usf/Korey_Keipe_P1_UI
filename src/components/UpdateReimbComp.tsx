@@ -12,6 +12,10 @@ import { updateReimb } from '../remote/reimb-service';
 import { Reimb } from '../models/reimb';
 import { User } from '../models/user';
 import { Link } from 'react-router-dom';
+import { grey, cyan, teal } from '@material-ui/core/colors';
+
+const primary = grey[500]; // #F44336
+const accent = teal[900]; // #E040FB
 
 interface IUpdateReimbProps {
 	authUser: User;
@@ -33,7 +37,8 @@ const useStyles = makeStyles({
 	},
 	link: {
         textDecoration: 'none',
-        color: 'white'
+		color: accent,
+		fontWeight: 'bold'
     }
 });
 

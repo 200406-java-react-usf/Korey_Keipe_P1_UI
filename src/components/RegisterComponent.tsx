@@ -12,6 +12,10 @@ import { registerUser } from '../remote/user-service';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
 import { Link } from 'react-router-dom';
+import { grey, cyan, teal } from '@material-ui/core/colors';
+
+const primary = grey[500]; // #F44336
+const accent = teal[900]; // #E040FB
 
 interface IRegisterProps {
     authUser: User;
@@ -25,14 +29,15 @@ const useStyles = makeStyles({
         justifyContent: "center",
         margin: 20,
         marginTop: 40,
-        padding: 20
+        padding: 20,
+        background: primary
     },
     registerForm: {
         width: "50%"
     },
     link: {
         textDecoration: 'none',
-        color: 'white'
+        color: accent
     }
 });
 

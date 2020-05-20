@@ -11,6 +11,10 @@ import { updateUser, deleteById } from '../remote/user-service';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
 import { Link } from 'react-router-dom';
+import { grey, cyan, teal } from '@material-ui/core/colors';
+
+const primary = grey[500]; // #F44336
+const accent = teal[900]; // #E040FB
 
 interface IUpdateUserProps {
 	authUser: User;
@@ -34,7 +38,8 @@ function UpdateUserComp (props: IUpdateUserProps) {
 		},
 		link: {
 			textDecoration: 'none',
-			color: 'white'
+			color: accent,
+			fontWeight: 'bold'
 		}
 	});
 	

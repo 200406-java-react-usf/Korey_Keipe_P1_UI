@@ -10,6 +10,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { User } from '../models/user';
 import { Link } from 'react-router-dom';
+import { grey, cyan, teal } from '@material-ui/core/colors';
+
+const primary = grey[500]; // #F44336
+const accent = teal[900]; // #E040FB
 
 interface IReimbProps {
 	authUser: User;
@@ -23,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			margin: 'auto',
 			textAlign: 'center',
 			justifyContent: 'center',
-			alignItems: 'center'
+			alignItems: 'center',
+			background: primary
 		},
 		bullet: {
 			display: 'flex',
@@ -35,7 +40,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		pos: {
 			marginBottom: 12,
-			textAlign: 'left'
+			textAlign: 'left',
+			background: primary
 		},
 		expand: {
 			transform: 'rotate(0deg)',
@@ -53,7 +59,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		link: {
 			textDecoration: 'none',
-			color: 'white',
+			color: accent,
+			fontWeight: 'bold',
 			marginBottom: 12,
 			textAlign: 'center',
 			padding: '10 em'
@@ -108,7 +115,7 @@ function ReimbComponent(props: IReimbProps) {
 						<Typography className={classes.root} color="textSecondary">
 							{reimb.description}
 						</Typography>
-							<ExpansionPanel>
+							<ExpansionPanel className={classes.pos}>
 								<ExpansionPanelSummary
 									expandIcon={<ExpandMoreIcon />}
 									aria-controls="panel1a-content"
@@ -116,7 +123,7 @@ function ReimbComponent(props: IReimbProps) {
 									>
 									<Typography className={classes.heading}>Detials</Typography>
 								</ExpansionPanelSummary>
-									<ExpansionPanelDetails>
+									<ExpansionPanelDetails className={classes.pos}>
 										<Typography className={classes.pos} color="textSecondary">
 											<tr>
 											{
