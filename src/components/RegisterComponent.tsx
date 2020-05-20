@@ -4,7 +4,6 @@ import {
     FormControl, 
     InputLabel, 
     Input, 
-    Button, 
     makeStyles, 
     Select
 } from '@material-ui/core';
@@ -12,6 +11,7 @@ import { Alert } from '@material-ui/lab';
 import { registerUser } from '../remote/user-service';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
+import { Link } from 'react-router-dom';
 
 interface IRegisterProps {
     authUser: User;
@@ -29,6 +29,10 @@ const useStyles = makeStyles({
     },
     registerForm: {
         width: "50%"
+    },
+    link: {
+        textDecoration: 'none',
+        color: 'white'
     }
 });
 
@@ -143,7 +147,7 @@ function RegisterComponent(props: IRegisterProps) {
                             </Select>
                     </FormControl>
                     <br/><br/>
-                    <Button onClick={register} variant="contained" color="primary" size="medium">Register</Button>
+                    <Link to="/dashboard" onClick={register} className={classes.link}> REGISTER </Link>
                     <br/><br/>
                     {
                         errorMessage
