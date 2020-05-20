@@ -5,7 +5,8 @@ import {
     InputLabel, 
     Input, 
     Button, 
-    makeStyles 
+    makeStyles, 
+	Select
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { User } from '../models/user';
@@ -64,7 +65,7 @@ function SubmitReimbComp(props: ICreateReimbProps) {
 		} catch (e) {
 			setErrorMessage(e)
 		}
-    }
+	}
 
 	return (
 				
@@ -82,7 +83,6 @@ function SubmitReimbComp(props: ICreateReimbProps) {
 								id="amount" type="number" 
 								placeholder="Amount" />
 						</FormControl>
-
 						<FormControl margin="normal" fullWidth>
 							<InputLabel htmlFor="description">Description</InputLabel>
 							<Input 
@@ -91,15 +91,16 @@ function SubmitReimbComp(props: ICreateReimbProps) {
 								id="description" type="text"
 								placeholder="Description"/>
 						</FormControl>
-
-						<FormControl margin="normal" fullWidth>
-							<InputLabel htmlFor="email">Type</InputLabel>
-							<Input 
-								onChange={updateType}
-								value={type_id}
-								id="type" type="text"
-								placeholder="type"/>
-						</FormControl>
+						<FormControl>
+                        <InputLabel htmlFor="age-native-simple">Category</InputLabel>
+                            <Select native onChange = {updateType}>
+                                <option aria-label="None" value="" />
+                                <option value = {1}>Lodging</option>
+                                <option value = {2}>Travel</option>
+                                <option value = {3}>Food</option>
+                                <option value = {4}>Other</option>
+                            </Select>
+                    	</FormControl>
 						<br/><br/>
 						<Button onClick={create} variant="contained" color="primary" size="medium">Submit</Button>
 						<br/><br/>

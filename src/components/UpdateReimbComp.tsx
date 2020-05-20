@@ -4,14 +4,17 @@ import {
     FormControl, 
     InputLabel, 
     Input, 
-    makeStyles 
+    makeStyles, 
+	Select,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { updateReimb } from '../remote/reimb-service';
 import { Reimb } from '../models/reimb';
+import { User } from '../models/user';
 import { Link } from 'react-router-dom';
 
 interface IUpdateReimbProps {
+	authUser: User;
 	thisReimb: Reimb;
 	setNewReimb: (newReimb: Reimb) => void;
 	setThisReimb: (reimb: Reimb) => void;
@@ -27,6 +30,10 @@ const useStyles = makeStyles({
     },
     registerForm: {
         width: "50%"
+	},
+	link: {
+        textDecoration: 'none',
+        color: 'white'
     }
 });
 
@@ -55,6 +62,10 @@ function UpdateReimbComp(props: IUpdateReimbProps) {
 
 	let updateType = (e: any) => {
 		setType(e.target.value);
+	}
+
+	let updateStatus = (e: any) => {
+		setStatus(e.target.value);
 	}
 
 	let update = async () => {
@@ -95,17 +106,33 @@ function UpdateReimbComp(props: IUpdateReimbProps) {
 								placeholder="Description"/>
 						</FormControl>
 
-						<FormControl margin="normal" fullWidth>
-							<InputLabel htmlFor="email">Type</InputLabel>
-							<Input 
-								onChange={updateType}
-								value={type_id}
-								id="type" type="text"
-								placeholder="type"/>
+						<FormControl>
+                        <InputLabel htmlFor="age-native-simple">Category</InputLabel>
+                            <Select native onChange={updateType} defaultValue={props.thisReimb.type_id}>
+                                <option value = {1}>Lodging</option>
+                                <option value = {2}>Travel</option>
+                                <option value = {3}>Food</option>
+                                <option value = {4}>Other</option>
+                            </Select>
+                    	</FormControl>
+						<br/>
+
+						{ props.authUser.user_id === 2 ? 
+						<FormControl>
+							<InputLabel> Status</InputLabel>
+								<Select native onChange={updateStatus} defaultValue={props.thisReimb.status_id}>
+									<option value = {1}>Pending</option>
+									<option value = {2}>Approved</option>
+									<option value = {3}>Rejected</option>
+								</Select>
 						</FormControl>
+						:
+						<></> }
 						<br/><br/>
-						<Link to="/dashboard" onClick={update}> UPDATE </Link>
+							<Link to="/dashboard" onClick={update} className={classes.link}> UPDATE </Link>
 						<br/><br/>
+
+						
 						{
 							errorMessage
 								? 

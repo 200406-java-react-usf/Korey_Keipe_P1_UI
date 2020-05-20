@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../models/user';
 import { getUsers, getUserById } from '../remote/user-service';
-import { Card, CardContent, Typography, makeStyles, CardHeader, IconButton } from '@material-ui/core';
+import { Card, CardContent, Typography, makeStyles, CardHeader, IconButton, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, createStyles, Theme, Menu, MenuItem } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 
 interface IUserProps{
     authUser: User;
     setThisUser: ((thisUser: User) => void);
 }
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     root: {
       minWidth: 275,
       maxWidth: '50%',
@@ -28,11 +31,16 @@ const useStyles = makeStyles({
     },
     pos: {
       marginBottom: 12,
+      textAlign: 'left'
     },
     id: {
         textAlign: 'left'
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
     }
-  });
+  }));
 
 const UserComponent = (props: IUserProps) => {
     
@@ -52,13 +60,13 @@ const UserComponent = (props: IUserProps) => {
 
                     <Card className={classes.root} variant="outlined">
                         <CardHeader action={
-                            <IconButton aria-label="settings" > 
+                            <IconButton aria-label="settings" >
                                 <Link to={`/user/${user.user_id}`} onClick={ async () => {
                                     const response = await getUserById(user.user_id);
                                     props.setThisUser(response);
                                     console.log(response);
                                 }}>
-                                <MoreVertIcon/>
+                                    <MoreVertIcon/>
                                 </Link>
                             </IconButton>
                         }
@@ -67,23 +75,32 @@ const UserComponent = (props: IUserProps) => {
                             <Typography className={classes.title} variant="h6" color="textPrimary" gutterBottom>
                                 {user.first_name} {user.last_name} {'# ' + user.user_id}
                             </Typography>
-                            
-                            <Typography className={classes.pos} color="textSecondary">
-                                {'Username: ' + user.username}
-                                <br/>
-                                {'Email: ' + user.email}
-                            </Typography>
-                            <Typography variant="body2" component="p">
-                                {
-                                    user.role_id === 1 ?
-                                    <td>Role: Admin</td> 
-                                    :
-                                    user.role_id === 2 ?
-                                    <td>Role: Financial Manager</td>
-                                    :
-                                    <td>Role: User</td>
-                                }
-                            </Typography>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                                >
+                                <Typography className={classes.heading}>Details</Typography>
+                                </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
+                                        <Typography className={classes.pos} color="textSecondary">
+                                            {'Username: ' + user.username}
+                                                <br/>
+                                            {'Email: ' + user.email}
+                                                <br/>
+                                            {
+                                                user.role_id === 1 ?
+                                                <td>Role: Admin</td> 
+                                                :
+                                                user.role_id === 2 ?
+                                                <td>Role: Financial Manager</td>
+                                                :
+                                                <td>Role: User</td>
+                                            }
+                                        </Typography>
+                                    </ExpansionPanelDetails>
+                            </ExpansionPanel>
                         </CardContent>
                     </Card>
 				)
