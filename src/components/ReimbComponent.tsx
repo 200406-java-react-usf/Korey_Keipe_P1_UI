@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, SyntheticEvent } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Reimb } from '../models/reimb';
 import { getReimbs, getReimbById } from '../remote/reimb-service';
-import { IconButton, CardHeader, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
+import { IconButton, CardHeader, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, FormControl, InputLabel, Select } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { User } from '../models/user';
@@ -65,16 +65,28 @@ function ReimbComponent(props: IReimbProps) {
   const classes = useStyles();
 
   const [reimbState, setReimbState] = useState([] as Reimb[]);
+  const [statusFilter, setStatusFilter] = useState(0);
+  const [typeFilter, setTypeFilter] = useState(0);
+
 
   let reimbs: any[] = [];
 
+  const updateStatusFilter = (e: any) => {
+	  setStatusFilter(e.target.value)
+  }
+
+  const updateTypeFilter = (e: any) => {
+	setTypeFilter(e.target.value)
+}
   useEffect(() => {
+
 	  async function fetchData() {
 
 		const response = await getReimbs();
-			  
+		
 		  for(let reimb of response) {
-			reimbs.push( 	
+			  if((reimb.status_id === statusFilter || statusFilter === 0 ) && (reimb.type_id === typeFilter || typeFilter === 0)){
+			reimbs.push(	
 			<>
 				<Card className={classes.root} variant="outlined">
 					<CardContent>
@@ -107,17 +119,6 @@ function ReimbComponent(props: IReimbProps) {
 										<Typography className={classes.pos} color="textSecondary">
 											<tr>
 											{
-												reimb.status_id === 1 ?
-												<td>Status: Pending</td> 
-												:
-												reimb.status_id === 2 ?
-												<td>Status: Approved</td>
-												:
-												<td>Status: Denied</td>
-											}
-											</tr>
-											<tr>
-											{
 												reimb.type_id === 1 ?
 												<td>Type: Lodging</td> 
 												:
@@ -131,6 +132,17 @@ function ReimbComponent(props: IReimbProps) {
 											}
 											</tr>
 											<tr>
+											{
+												reimb.status_id === 1 ?
+												<td>Status: Pending</td> 
+												:
+												reimb.status_id === 2 ?
+												<td>Status: Approved</td>
+												:
+												<td>Status: Denied</td>
+											}
+											</tr>
+											<tr>
 												{`Author Id: ${reimb.author_id}`}
 											</tr>
 											<tr>
@@ -141,18 +153,52 @@ function ReimbComponent(props: IReimbProps) {
 							</ExpansionPanel>
 					</CardContent>
 				</Card>
-			</> 
+			</>
 			)
+			}
 		}
 		setReimbState(reimbs);
 	}
 	fetchData();
 // eslint-disable-next-line react-hooks/exhaustive-deps
-},[]);
+},[statusFilter, typeFilter]);
 
 	return (
 		<>
-			{reimbState}
+			<>	  
+				<Card className={classes.root} variant="outlined">
+					<CardContent>
+						<Typography color="textSecondary">
+							Filters
+							<FormControl className={classes.bullet}>
+								<InputLabel htmlFor="age-native-simple">Status</InputLabel>
+									<Select value={statusFilter} onChange={updateStatusFilter} defaultValue={0}>
+										<option value = {0}></option>
+										<option value = {1}>Pending</option>
+										<option value = {2}>Approved</option>
+										<option value = {3}>Rejected</option>
+									</Select>
+							</FormControl>
+				
+							<FormControl className={classes.bullet}>
+								<InputLabel htmlFor="age-native-simple">Type</InputLabel>
+									<Select value={typeFilter} onChange={updateTypeFilter} defaultValue={0}>
+										<option value = {0}></option>
+										<option value = {1}>Lodging</option>
+										<option value = {2}>Travel</option>
+										<option value = {3}>Food</option>
+										<option value = {4}>Other</option>
+									</Select>
+							</FormControl>
+						</Typography>
+					</CardContent>
+				</Card>
+			</>
+
+			<>
+				{reimbState}
+			</>
+
 		</>
 	)
 }
