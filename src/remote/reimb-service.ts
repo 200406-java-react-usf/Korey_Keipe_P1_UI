@@ -1,9 +1,9 @@
 import { remoteClient } from './client';
-// import { localClient } from './client';
+import { localClient } from './client';
 import { NewReimb } from '../models/newReimb';
 import { Reimb } from '../models/reimb';
 
-let currentClient = remoteClient;
+let currentClient = localClient;
 
 export const getReimbs = async () => {
 
