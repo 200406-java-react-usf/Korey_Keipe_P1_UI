@@ -22,7 +22,6 @@ function App() {
   const [newReimb, setNewReimb] = useState(null as Reimb);
   // @ts-ignore
   const [thisUser, setThisUser] = useState(null as User);
-  console.log(thisUser);
   const [errorMessage, setErrorMessage] = useState('');
   
   return (
@@ -48,11 +47,8 @@ function App() {
           <Route path="/dashboard" render={() => <DashboardComponent authUser={authUser} /> } /> 
           <Route path="/reimbursements" render={() => <ReimbComponent authUser={authUser}/> } />
           <Route path="/submit" render={() => <CreateReimbComp authUser={authUser} setNewReimb={setNewReimb} /> } />
-                
+          <Route path={`/user/${thisUser?.user_id}`} exact render={() => <UpdateUserComp thisUser={thisUser} setThisUser={setThisUser} setNewUser={setNewUser} /> } /> 
         </Switch>
-        { thisUser ?
-          <Route path={`/users/${thisUser.user_id}`} exact render={() => <UpdateUserComp thisUser={thisUser} setThisUser={setThisUser} setNewUser={setNewUser} /> } />
-          : <></> } 
       </Router>
     </>
   );
