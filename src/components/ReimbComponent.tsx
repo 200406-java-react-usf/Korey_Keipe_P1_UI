@@ -85,7 +85,7 @@ function ReimbComponent(props: IReimbProps) {
 		const response = await getReimbs();
 		
 		  for(let reimb of response) {
-			if(props.authUser.role_id === 2 || reimb.author_id === props.authUser.user_id){
+			if(props.authUser?.role_id === 2 || reimb.author_id === props.authUser?.user_id){
 			  if((reimb.status_id === statusFilter || statusFilter === 0 ) && (reimb.type_id === typeFilter || typeFilter === 0)){
 			reimbs.push(	
 			<>
