@@ -4,7 +4,8 @@ import {
     FormControl, 
     InputLabel, 
     Input, 
-	makeStyles
+	makeStyles,
+	Select
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { updateUser, deleteById } from '../remote/user-service';
@@ -151,15 +152,17 @@ function UpdateUserComp (props: IUpdateUserProps) {
 								id="email" type="text"
 								placeholder="Enter email"/>
 						</FormControl>
-						
-						<FormControl margin="normal" fullWidth>
-							<InputLabel htmlFor="role_id">Role</InputLabel>
-							<Input 
-								onChange={updateRole}
-								value={role_id}
-								id="role" type="text"
-								placeholder="Enter user role"/>
-						</FormControl>
+					
+						<FormControl>
+                        <InputLabel htmlFor="age-native-simple">Role</InputLabel>
+                            <Select native onChange = {updateRole}>
+                                <option aria-label="None" value={role_id} />
+                                <option value = {1}>Admin</option>
+                                <option value = {2}>Manager</option>
+                                <option value = {3}>User</option>
+                            </Select>
+                    	</FormControl>
+
 							<br/><br/>
 							<Link to="/dashboard" onClick={update} className={classes.link}> UPDATE </Link>
 							<br/><br/>
