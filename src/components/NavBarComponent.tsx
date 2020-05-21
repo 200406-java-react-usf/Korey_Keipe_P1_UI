@@ -14,7 +14,7 @@ import { teal, cyan } from '@material-ui/core/colors';
 const primary = cyan[500]; // #F44336
 const accent = teal[900]; // #E040FB
 
-interface INavbarProps {
+export interface INavbarProps {
 	authUser: User;
 	setAuthUser: (user: User) => void;
 }

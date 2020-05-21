@@ -17,7 +17,7 @@ import { grey, cyan, teal } from '@material-ui/core/colors';
 const primary = grey[500]; // #F44336
 const accent = teal[900]; // #E040FB
 
-interface IRegisterProps {
+export interface IRegisterProps {
     authUser: User;
     errorMessage: string;
     setNewUser: (newUser: NewUser) => void;
