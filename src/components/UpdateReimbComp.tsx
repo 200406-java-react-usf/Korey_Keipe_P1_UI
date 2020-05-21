@@ -122,7 +122,7 @@ function UpdateReimbComp(props: IUpdateReimbProps) {
                     	</FormControl>
 						<br/>
 
-						{ (props.authUser.user_id === 2 && status_id !== 1 )? 
+						{ props.authUser.user_id === 2? 
 						<FormControl>
 							<InputLabel> Status</InputLabel>
 								<Select native onChange={updateStatus} defaultValue={props.thisReimb.status_id}>
@@ -134,7 +134,9 @@ function UpdateReimbComp(props: IUpdateReimbProps) {
 						:
 						<></> }
 						<br/><br/>
+						{ props.thisReimb.status_id !== 1 ?
 							<Link to="/dashboard" onClick={update} className={classes.link}> UPDATE </Link>
+							: <></> }
 						<br/><br/>
 
 						
