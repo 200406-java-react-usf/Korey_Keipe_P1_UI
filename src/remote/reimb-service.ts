@@ -3,7 +3,7 @@ import { localClient } from './client';
 import { NewReimb } from '../models/newReimb';
 import { Reimb } from '../models/reimb';
 
-let currentClient = localClient;
+let currentClient = remoteClient;
 
 export const getReimbs = async () => {
 
