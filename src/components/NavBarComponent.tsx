@@ -9,13 +9,21 @@ import {
 import { Link } from 'react-router-dom';
 import { logOut } from '../remote/user-service';
 
-interface INavbarProps {
+import { teal, cyan } from '@material-ui/core/colors';
+
+const primary = cyan[500]; // #F44336
+const accent = teal[900]; // #E040FB
+
+export interface INavbarProps {
 	authUser: User;
 	setAuthUser: (user: User) => void;
 }
 
 const userStyles = makeStyles((theme: Theme) =>
 	createStyles({
+	theme:{
+		background: primary
+	},
 	root:{
 		flexGrow: 1,
 	},
@@ -24,10 +32,12 @@ const userStyles = makeStyles((theme: Theme) =>
 	},
 	title: {
 		flexGrow: 1,
+		fontWeight: 'bold'
 	},
 	link: {
         textDecoration: 'none',
-        color: 'white'
+		color: accent,
+		fontWeight: 'bold'
     }
 	}),
 );
@@ -45,7 +55,7 @@ const NavbarComponent = (props: INavbarProps) => {
 
 	return (
 		<>
-			<AppBar position="fixed">
+			<AppBar className={classes.theme} position="fixed">
 				<Toolbar>
 					<Typography variant="h6" className={classes.title}>
 						{ props.authUser ? <Link to="/dashboard" className={classes.link}>{props.authUser.username} </Link> : <></> }

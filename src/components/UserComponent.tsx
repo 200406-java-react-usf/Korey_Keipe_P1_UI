@@ -5,7 +5,10 @@ import { Card, CardContent, Typography, makeStyles, CardHeader, IconButton, Expa
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { grey, cyan, teal } from '@material-ui/core/colors';
 
+const primary = grey[500]; // #F44336
+const accent = teal[900]; // #E040FB
 
 interface IUserProps{
     authUser: User;
@@ -19,22 +22,23 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 'auto',
       textAlign: 'center',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      background: primary
     },
     bullet: {
       display: 'flex',
       margin: '0 2px',
       transform: 'scale(0.8)',
+      background: primary
     },
     title: {
       fontSize: 24,
+      color: grey[900]
     },
     pos: {
       marginBottom: 12,
-      textAlign: 'left'
-    },
-    id: {
-        textAlign: 'left'
+      textAlign: 'left',
+      background: primary
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -75,7 +79,7 @@ const UserComponent = (props: IUserProps) => {
                             <Typography className={classes.title} variant="h6" color="textPrimary" gutterBottom>
                                 {user.first_name} {user.last_name} {'# ' + user.user_id}
                             </Typography>
-                            <ExpansionPanel>
+                            <ExpansionPanel className={classes.pos}>
                                 <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"

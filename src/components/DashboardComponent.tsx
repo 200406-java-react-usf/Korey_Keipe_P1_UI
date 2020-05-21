@@ -2,6 +2,10 @@ import React from 'react';
 import { User } from "../models/user";
 import { Typography, makeStyles, Grid, Theme, createStyles, Paper } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
+import { grey, cyan, teal } from '@material-ui/core/colors';
+
+const primary = grey[500]; // #F44336
+const accent = teal[900]; // #E040FB
 
 interface IDashboardProps {
 	authUser: User;
@@ -9,17 +13,22 @@ interface IDashboardProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+	theme:{
+		background: primary
+	},
     root: {
-      flexGrow: 1,
-    },
+	  flexGrow: 1,
+	},
     paper: {
       padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.primary,
+	  textAlign: 'center',
+	  background: primary,
+	  justifyContent: 'center'
 	},
 	link: {
         textDecoration: 'none',
-        color: 'white'
+		color: accent,
+		fontWeight: 'bold'
     }
   }),
 );
@@ -39,8 +48,8 @@ function DashboardComponent(props: IDashboardProps) {
 					<Typography align="center" variant="h4">
 							ADMIN DASHBOARD
 					</Typography>
-						<Grid container spacing={3}>
-							<Grid item xs>
+						<Grid container spacing={3} >
+							<Grid item xs >
 								<Paper className={classes.paper}><Link to="/register" className={classes.link}>NEW USER</Link></Paper>
 							</Grid>
 						</Grid>

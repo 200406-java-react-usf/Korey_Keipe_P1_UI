@@ -2,6 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core'
 import { User } from '../models/user';
 import { Redirect } from 'react-router-dom';
+import { grey, cyan, teal } from '@material-ui/core/colors';
+
+const primary = grey[500]; // #F44336
+const accent = teal[900]; // #E040FB
 
 interface IHomeProps {
 	authUser: User;
@@ -14,10 +18,13 @@ const useStyles = makeStyles({
         justifyContent: "center",
         margin: 20,
         marginTop: 40,
-        padding: 20
+		padding: 20,
+		background: primary
     },
     Form: {
-        width: "50%"
+		width: "50%",
+		color: accent,
+		fontWeight: 'bold'
     }
 });
 

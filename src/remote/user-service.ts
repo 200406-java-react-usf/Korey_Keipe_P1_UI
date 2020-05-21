@@ -1,5 +1,5 @@
 import { remoteClient } from './client';
-// import { localClient } from './client';
+import { localClient } from './client';
 import { NewUser } from '../models/newUser';
 import { User } from '../models/user';
 
