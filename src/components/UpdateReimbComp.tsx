@@ -134,7 +134,7 @@ function UpdateReimbComp(props: IUpdateReimbProps) {
 						:
 						<></> }
 						<br/><br/>
-						{ props.thisReimb.status_id !== 1 ?
+						{ props.thisReimb.status_id === 1 ?
 							<Link to="/dashboard" onClick={update} className={classes.link}> UPDATE </Link>
 							: <></> }
 						<br/><br/>
