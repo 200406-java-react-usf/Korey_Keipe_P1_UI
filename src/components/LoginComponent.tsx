@@ -58,10 +58,11 @@ function LoginComponent(props: ILoginProps) {
     }
 
     let login = async () => {
-
+    
 		let authUser = await authenticate(username, password);
-        props.setAuthUser(authUser);
         console.log(authUser);
+        props.setAuthUser(authUser);
+       
     }
 
     return (
