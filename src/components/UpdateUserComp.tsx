@@ -155,7 +155,7 @@ function UpdateUserComp (props: IUpdateUserProps) {
 					
 						<FormControl>
                         <InputLabel htmlFor="age-native-simple">Role</InputLabel>
-                            <Select native onChange = {updateRole}>
+                            <Select native onChange = {updateRole} defaultValue={props.thisUser.role_id}>
                                 <option aria-label="None" value={role_id} />
                                 <option value = {1}>Admin</option>
                                 <option value = {2}>Manager</option>

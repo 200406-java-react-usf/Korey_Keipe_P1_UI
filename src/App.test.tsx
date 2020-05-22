@@ -13,11 +13,5 @@ describe('<App />', () => {
 
     });
 
-    test('Renders NavBarComponent', () => {
-      const wrapper = mount(<App />);
-  
-      expect(wrapper.find(NavbarComponent)).toHaveLength(1);
-    })
-
 });
 
